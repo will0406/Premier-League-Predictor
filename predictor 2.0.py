@@ -125,12 +125,11 @@ def get_recent_stats(df, team, n=5):
     return {"avg_g": np.mean(goals) if goals else 0, "avg_sot": np.mean(sots) if sots else 0, "avg_c": np.mean(cards) if cards else 0}
 
 # ==========================================
-# 5. PREDICTION ENGINE (WITH SOT ADJUSTMENTS)
+# 5. PREDICTION ENGINE
 # ==========================================
 def run_predictor(home_team, away_team, df):
     h_att, h_def, a_att, a_def, avg_h, avg_a = calculate_metrics(df)
     
-    # Get recent team stats and league average SOT
     h_stats = get_recent_stats(df, home_team)
     a_stats = get_recent_stats(df, away_team)
     league_avg_sot = df[['HST', 'AST']].mean().mean()
@@ -139,21 +138,16 @@ def run_predictor(home_team, away_team, df):
     home_exp = h_att[home_team] * a_def[away_team] * avg_h
     away_exp = a_att[away_team] * h_def[home_team] * avg_a
 
-    # --- SOT VOLATILITY ADJUSTMENT ---
     if h_stats['avg_sot'] > (league_avg_sot * 1.15):
         home_exp *= 1.12
     if a_stats['avg_sot'] > (league_avg_sot * 1.15):
         away_exp *= 1.12
 
-    # --- MISMATCH BOOST (For Large Scores) ---
-    # If one team is significantly better (e.g., Arsenal vs Burnley), 
-    # we boost the favorite to allow for blowout predictions.
     if home_exp > (away_exp * 2.5):
-        home_exp *= 1.25  # 25% boost to the favorite
+        home_exp *= 1.25  
     elif away_exp > (home_exp * 2.5):
         away_exp *= 1.25
 
-    # --- TUNED DIXON-COLES ADJUSTMENT ---
     rho = 0.05
 
     def get_tau(h, a, h_exp, a_exp, rho_val):
@@ -164,7 +158,6 @@ def run_predictor(home_team, away_team, df):
         return 1.0
 
     max_p, best_s = 0, (0, 0)
-    # Increased range to 10 to allow for scores up to 9 goals
     for h in range(10):
         for a in range(10):
             p = poisson.pmf(h, home_exp) * poisson.pmf(a, away_exp)

@@ -30,3 +30,18 @@ How to Run:
     "sheffield utd": "Sheffield United",
     "leeds united": "Leeds"
 
+About Dataset:
+Date: the date the match was played, DD/MM/YYYY.
+Season: which season the match belonged to.
+HomeTeam: the team to play at home.
+AwayTeam: the team to play away.
+FTHG: Full Time Home Goal, number of goals home team scored at full time.
+FTAG: Full Time Away Goal, number of goals away team scored at full time.
+FTR: Full Time Result, the result of the match, H meaning home win, A meaning away win, and D meaning draw.
+HST: Home Shots on Target, the amount of shots on target for the home team.
+AST: Away Shots on Target, the amount of shots on target for the away team.
+HY: Home Yellow, amount of yellow cards for the home team.
+AY: Away Yellow, amount of yellow cards for the away team.
+AvgH: the average market odds for the home team to win.
+AvgD: the average market odds for a draw.
+AvgA: the average market odds for the away team to win.

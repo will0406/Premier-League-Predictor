@@ -1,4 +1,6 @@
 # Premier-League-Predictor
+By William Shan Huang 3036178798
+
 LLM-Powered Football Match Predictor and Analysis Assistant 
 
 This project is a match forecasting system that combines mathematical Poisson-Dixon-Coles modeling with Ollama (via RAG) to provide data-driven match predictions and analyst-style explanations.

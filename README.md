@@ -34,7 +34,7 @@ How to Run:
     "sheffield utd": "Sheffield United",
     "leeds united": "Leeds"
 
-About Dataset:
+About Dataset: all match results of Premier League teams from 2021-2022 season to 2025-2026 season (until May 13, 2026)
 
 Date: the date the match was played, DD/MM/YYYY.
 

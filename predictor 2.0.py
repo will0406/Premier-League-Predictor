@@ -216,10 +216,18 @@ if __name__ == "__main__":
         h_input = input("\nEnter Home Team (or 'exit'): ")
         if h_input.lower() == 'exit': break
         home = standardize_team_name(h_input, all_teams)
-        if not home: print(f"❌ '{h_input}' not found."); continue
+        if not home: 
+            print(f"❌ '{h_input}' not found.")
+            continue
             
         a_input = input("Enter Away Team: ")
         away = standardize_team_name(a_input, all_teams)
-        if not away: print(f"❌ '{a_input}' not found."); continue
+        if not away: 
+            print(f"❌ '{a_input}' not found.")
+            continue
+        
+        if home == away:
+            print(f"⚠️  Validation Error: {home} cannot play against itself. Please choose two different teams.")
+            continue
             
         run_predictor(home, away, dataset)
